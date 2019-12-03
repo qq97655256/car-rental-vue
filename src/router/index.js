@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
 import carowner from '@/components/car-owner'
+import lineitem from '@/components/line-item'
+import ceshi from '@/components/ceshi'
 import personal from '@/components/PersonalCenter'
 import personalmain from '@/components/PersonalMain'
 
@@ -20,9 +22,13 @@ export default new Router({
       component:carowner
     },
     {
-      path:'/personal',
-      name:'personal',
-      component:personal
+      path:'/item',
+      name:'lineitem',
+      component:lineitem
+    },{
+      path:'/ceshi',
+      name:'ceshi',
+      component:ceshi
     },
     {
       path:'/main',
