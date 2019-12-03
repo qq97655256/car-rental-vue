@@ -80,6 +80,7 @@
         </a>
       </li>
     </ul>
+    <div><a href="#/main">dianji</a></div>
   </div>
 </template>
 
