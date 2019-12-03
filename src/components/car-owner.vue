@@ -12,48 +12,33 @@
         <!--用户查询车辆的信息-->
         <div class="bt">
           <p class="nr">让您的爱车为您赚钱吧！</p>
-          <img class="sx"
+          <img class="sx" @click="onsume"
                src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAQDAwQDAwQEBAQFBQQFBwsHBwYGBw4KCggLEA4RERAOEA8SFBoWEhMYEw8QFh8XGBsbHR0dERYgIh8cIhocHRz/2wBDAQUFBQcGBw0HBw0cEhASHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBz/wgARCAAWABgDAREAAhEBAxEB/8QAFwABAQEBAAAAAAAAAAAAAAAABwYFCP/EABQBAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhADEAAAAOvzIEkJRnAgYCALI//EACgQAAIBAwMDAwUBAAAAAAAAAAEDAgQFBgAREgcUIUFicggQEyQxVf/aAAgBAQABPwDPM6rrJcbZjeN29Vzy27RmxCXzMEUyYkCT3yHkQBIGw8yPgaOO9XaVfeqzew1lZ/mvspVSy9obFhYPlq3uqXUVNKtWpNfJUJPSphnCEyPIBIBI33AOw31itLmU+u2V3O64wims06CnpEXLvucfxwkyQCxw3kZme8onjw+2O40u5fUdlN7pLvdmqtNBTU7/ANkFXcMM5FHHbbhFfA7ektZHaZ3uz1duXcq63TqIiMauhmIOSd/BiSDo4T1MfDsX9TUCh/kqlFjXCslH5cysH3CGsMw61YNZha7StgXzk9z3T5uqWyO8msmfM5y9Sdf/xAAUEQEAAAAAAAAAAAAAAAAAAAAw/9oACAECAQE/AB//xAAUEQEAAAAAAAAAAAAAAAAAAAAw/9oACAEDAQE/AB//2Q==">
         </div>
         <!--根据品牌选择车型，根据车型选择型号，选择出车年月份-->
-        <el-select v-model="value" placeholder="请选择品牌">
-          <el-option
-            v-for="item in options"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value">
+        <el-select class="xzk" v-model="prov" style="width:167px;margin-right: 25px;">
+          <el-option v-for="option in arr" :value="option.name">
+            {{ option.name }}
           </el-option>
         </el-select>
-        <br><br>
-        <el-select v-model="value" placeholder="请选择车型">
-          <el-option
-            v-for="item in options"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value">
+        <el-select class="xzk" v-model="city" style="width:167px;margin-right: 25px;">
+          <el-option v-for="option in cityArr" :value="option.name">
+            {{ option.name }}
           </el-option>
         </el-select>
-        <br><br>
-        <el-select v-model="value" placeholder="请选择型号">
-          <el-option
-            v-for="item in options"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value">
-          </el-option>
+        <el-select class="xzk" v-model="district" style="width:167px;margin-right: 25px;">
+          <el-option v-for="option in districtArr" :value="option.name">
+          {{ option.name }}
+        </el-option>
         </el-select>
-        <br><br>
-        <el-select v-model="value" placeholder="选择出车年月份">
-          <el-option
-            v-for="item in options"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value">
+        <el-select class="xzk" v-model="year" style="width:167px;margin-right: 25px;">
+          <el-option v-for="option in year" :value="option.name">
+            {{ option.name }}
           </el-option>
         </el-select>
         <br>
         <!--获得信息更改价格-->
-        <div class="sy"> 预计收入<span class="je">0元/天</span></div>
+        <div class="sy"> 预计收入<span class="je">{{number}}</span></div>
         <div class="ts">在未获知车辆详细配置前，预计收益仅供参考</div>
       </div>
     </div>
@@ -122,29 +107,69 @@
   </div>
 </template>
 <script>
+  import area from './area.js'
   export default {
     data() {
       return {
-        //车辆品牌选择框的信息
-        options: [{
-          value: '选项1',
-          label: '黄金糕'
-        }, {
-          value: '选项2',
-          label: '双皮奶'
-        }, {
-          value: '选项3',
-          label: '蚵仔煎'
-        }, {
-          value: '选项4',
-          label: '龙须面'
-        }, {
-          value: '选项5',
-          label: '北京烤鸭'
-        }],
-        value: ''
+        arr: area.arrAll,
+        prov: '请选择品牌',
+        city: '请选择车型',
+        district: '请选择型号',
+        year:'选择出场年月份',
+        cityArr: [],
+        districtArr: [],
+        number:'0/元'
+      }
+    },
+    methods: {
+      onsume: function () {
+        this.prov='请选择品牌';
+        this.city='请选择车型';
+        this.district= '请选择型号';
+        this.year='选择出场年月份';
+      },
+      updateCity: function() {
+        for (var i in this.arr) {
+          var obj = this.arr[i];
+          if (obj.name) {
+            if (obj.name == this.prov) {
+              this.cityArr = obj.sub;
+              break;
+            }
+          }
+        }
+        this.city = this.cityArr[1].name;
+      },
+      updateDistrict: function() {
+        for (var i in this.cityArr) {
+          var obj = this.cityArr[i];
+          if (obj.name == this.city) {
+            this.districtArr = obj.sub;
+            break;
+          }
+        }
+        if (this.districtArr && this.districtArr.length > 0 && this.districtArr[1].name) {
+          this.district = this.districtArr[1].name;
+        } else {
+          this.district = '';
+        }
+      }
+    },
+    beforeMount() {
+      this.updateCity();
+      this.updateDistrict();
+
+    },
+    watch: {
+      prov: function() {
+        this.updateCity();
+        this.updateDistrict();
+      },
+      city: function() {
+        this.updateDistrict();
       }
     }
+
   }
 </script>
 <style>
@@ -167,11 +192,11 @@
   }
 
   #logn {
-    width: 350px;
+    width: 300px;
     height: 350px;
     background: azure;
     margin-left: 1100px;
-    margin-top: -200px;
+    margin-top: -180px;
   }
 
   /*提示信息*/
@@ -182,7 +207,9 @@
   }
 
   .nr {
+    font-size: 16px;
     margin-left: -110px;
+    padding-bottom: 10px;
   }
 
   .sx {
@@ -192,10 +219,8 @@
   }
 
   /*选择框*/
-  el-select {
-    margin-bottom: 10px;
-    width: 70px;
-    height: 100px;
+  .xzk{
+    height: 50px;
   }
 
   /*预计收入的css样式*/
