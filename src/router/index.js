@@ -2,8 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
 import carowner from '@/components/car-owner'
-import lineitem from '@/components/line-item'
 import personalmain from '@/components/PersonalMain'
+import lineitem from '@/components/line-item'
 
 Vue.use(Router)
 
@@ -28,6 +28,6 @@ export default new Router({
       path:'/main',
       name:'personalmain',
       component:personalmain
-    },
+    }
   ]
 })

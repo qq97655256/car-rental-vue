@@ -17,24 +17,24 @@
         </div>
         <!--根据品牌选择车型，根据车型选择型号，选择出车年月份-->
         <el-select class="xzk" v-model="prov" style="width:167px;margin-right: 25px;">
-          <el-option v-for="option in arr" :value="option.name">
+         <!-- <el-option v-for="option in arr" :value="option.name">
             {{ option.name }}
-          </el-option>
+          </el-option>-->
         </el-select>
         <el-select class="xzk" v-model="city" style="width:167px;margin-right: 25px;">
-          <el-option v-for="option in cityArr" :value="option.name">
+          <!--<el-option v-for="option in cityArr" :value="option.name">
             {{ option.name }}
-          </el-option>
+          </el-option>-->
         </el-select>
         <el-select class="xzk" v-model="district" style="width:167px;margin-right: 25px;">
-          <el-option v-for="option in districtArr" :value="option.name">
+          <!--<el-option v-for="option in districtArr" :value="option.name">
           {{ option.name }}
-        </el-option>
+        </el-option>-->
         </el-select>
         <el-select class="xzk" v-model="year" style="width:167px;margin-right: 25px;">
-          <el-option v-for="option in year" :value="option.name">
+          <!--<el-option v-for="option in year" :value="option.name">
             {{ option.name }}
-          </el-option>
+          </el-option>-->
         </el-select>
         <br>
         <!--获得信息更改价格-->

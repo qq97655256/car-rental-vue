@@ -8,7 +8,7 @@
               <div class="grid-content bg-purple">账户余额</div>
             </el-col>
             <el-col :span="6">
-              <div class="grid-content bg-purple">银行卡</div>
+              <div class="grid-content bg-purple">添加银行卡</div>
             </el-col>
             <el-col :span="6">
               <div class="grid-content bg-purple">我的车子</div>
@@ -41,9 +41,6 @@
               <el-form-item label="支付密码" :label-width="formLabelWidth" prop="password">
                 <el-input v-model="form.password" autocomplete="off"></el-input>
               </el-form-item>
-              <el-form-item label="银行卡" :label-width="formLabelWidth" prop="bankcard">
-                <el-input v-model="form.bankcard" autocomplete="off"></el-input>
-              </el-form-item>
               <el-form-item label="头像" :label-width="formLabelWidth" prop="uph">
                 <el-input v-model="form.uph" autocomplete="off"></el-input>
               </el-form-item>
@@ -60,7 +57,43 @@
           <div>订单信息</div>
           <div>我的车子</div>
         </el-aside>
-        <el-main>Main</el-main>
+        <el-main>
+          <el-form :model="numberValidateForm" ref="numberValidateForm" label-width="100px" class="demo-ruleForm">
+            <el-form-item
+              label="银行卡号"
+              prop="bankcard"
+              :rules="[
+      { required: true, message: '卡号不能为空'},
+      { type: 'number', message: '卡号必须为12-18位数字值'}
+    ]">
+              <el-input type="bankcard" v-model.number="numberValidateForm.bankcard" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item>
+              <el-button type="primary" @click="submitForm('numberValidateForm')">提交</el-button>
+              <el-button @click="resetForm('numberValidateForm')">重置</el-button>
+            </el-form-item>
+          </el-form>
+          <el-table
+            :data="tableData"
+            height="800"
+            border
+            style="width: 100%">
+            <el-table-column
+              prop="date"
+              label="日期"
+              width="180">
+            </el-table-column>
+            <el-table-column
+              prop="name"
+              label="姓名"
+              width="180">
+            </el-table-column>
+            <el-table-column
+              prop="address"
+              label="地址">
+            </el-table-column>
+          </el-table>
+        </el-main>
       </el-container>
     </el-container>
   </div>
@@ -71,8 +104,40 @@
     name: "PersonalMain",
     data(){
       return{
+        tableData: [{
+          date: '2016-05-03',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1518 弄'
+        }, {
+          date: '2016-05-02',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1518 弄'
+        }, {
+          date: '2016-05-04',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1518 弄'
+        }, {
+          date: '2016-05-01',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1518 弄'
+        }, {
+          date: '2016-05-08',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1518 弄'
+        }, {
+          date: '2016-05-06',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1518 弄'
+        }, {
+          date: '2016-05-07',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1518 弄'
+        }],
         height: {
           height: window.innerHeight - 136 + 'px'
+        },
+        numberValidateForm: {
+          bankcard: ''
         },
         dialogFormVisible: false,
         form: {
@@ -82,7 +147,7 @@
           pass: '',
           password: '',
           bankcard: '',
-          uph: '',
+          uph: ''
         },
         formLabelWidth: '100px',
         rules:{
@@ -98,7 +163,19 @@
       }
     },
     methods:{
-
+      submitForm(formName) {
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            alert('submit!');
+          } else {
+            console.log('error submit!!');
+            return false;
+          }
+        });
+      },
+      resetForm(formName) {
+        this.$refs[formName].resetFields();
+      }
     },
     mounted(){
 
