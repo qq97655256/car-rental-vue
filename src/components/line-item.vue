@@ -1,9 +1,9 @@
 <template>
-    <div>
-      <div class="bjt">
-        <img class="t1" src="https://www.atzuche.com/static/media/banner_txt.27b00f5f.png">
-      </div>
-      <div class="bd">
+  <div>
+    <div class="bjt">
+      <img class="t1" src="https://www.atzuche.com/static/media/banner_txt.27b00f5f.png">
+    </div>
+    <div class="bd">
       <el-menu  class="el-menu-demo" mode="horizontal" >
         <el-menu-item index="1">全部订单</el-menu-item>
       </el-menu>
@@ -19,45 +19,60 @@
           prop="caname"
           label="车名"
           width="120"
-          >
+        >
         </el-table-column>
         <el-table-column
           prop="cacard"
           label="车牌号"
-          width="140">
+          width="150">
         </el-table-column>
         <el-table-column
           prop="xia"
-          label="下单时间">
+          label="下单时间"
+          width="200">
         </el-table-column><el-table-column
-          prop="qu"
-          label="取车时间">
-        </el-table-column><el-table-column
-          prop="yong"
-          label="使用时长">
-        </el-table-column><el-table-column
-          prop="money"
-          label="实际需交金额">
-        </el-table-column>
+        prop="qu"
+        label="取车时间"
+        width="200">
+      </el-table-column><el-table-column
+        prop="yong"
+        label="使用时长"
+        width="200">
+      </el-table-column><el-table-column
+        prop="money"
+        label="实际需交金额"
+        width="210">
+      </el-table-column><el-table-column
+        label="操作"
+        width="420">
+        <template slot-scope="scope">
+          <el-button type="primary" @click="deleteById(scope.row)" round >退订</el-button>
+        </template>
+      </el-table-column>
       </el-table>
-
-      </div>
-      <div class="aa"></div>
     </div>
+    <div class="aa"></div>
+  </div>
 
 </template>
 
 <script>
-
+  import axios from 'axios'
   export default {
     data() {
       return {
         tableData: []
       }
     },
-    mounted:{
-
-
+    methods:{
+      findAll:function (res) {
+        axios.get("api/item/itemall/1").then(res=>{
+          this.tableData=res.data
+        })
+      }
+    },
+    mounted(){
+      this.findAll()
     }
   }
 </script>
@@ -68,7 +83,7 @@
     width: 1922px;
     margin-left: -10px;
     height: 450px;
-}
+  }
   .t1{
     margin-right: 500px;
     margin-top: 200px;
