@@ -45,13 +45,15 @@
       </el-table-column><el-table-column
         label="操作"
         width="420">
-        <template slot-scope="scope">
+        <template slot-scope="scope" >
           <el-button type="primary" @click="deleteById(scope.row)" round >退订</el-button>
         </template>
       </el-table-column>
       </el-table>
     </div>
-    <div class="aa"></div>
+    <div class="aa">
+
+    </div>
   </div>
 
 </template>
@@ -61,13 +63,31 @@
   export default {
     data() {
       return {
-        tableData: []
+        tableData: [],
+
       }
     },
     methods:{
       findAll:function (res) {
-        axios.get("api/item/itemall/1").then(res=>{
+      var uid=1;
+        axios.get("api/item/itemall/"+uid).then(res=>{
           this.tableData=res.data
+        })
+      },
+      deleteById:function (scop) {
+        axios.get("api/item/Itemdelete/"+scop.oid).then(res=>{
+          if(res.data==("success")){
+            this.$notify({
+              message: '删除成功',
+              type: 'success'
+            });
+            this.findAll();
+          }else{
+            this.$notify({
+              message: '删除失败',
+              type: 'warning'
+            });
+          }
         })
       }
     },
@@ -80,7 +100,7 @@
 <style scoped>
   .bjt{
     background-image: url("https://www.atzuche.com/static/media/signup-back.a22bc70d.jpg");
-    width: 1922px;
+    width: 1905px;
     margin-left: -10px;
     height: 450px;
   }

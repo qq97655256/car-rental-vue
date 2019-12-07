@@ -169,7 +169,6 @@
     }
   }
 </script>
-
 <style>
   /*背景图设置*/
   .bjt {
@@ -177,12 +176,10 @@
     height: 500px;
     padding-top: 100px;
   }
-
   .zs1 {
     margin-left: -1400px;
     margin-top: 60px;
   }
-
   .zs2 {
     float: left;
     margin-top: 200px;
